@@ -1,0 +1,66 @@
+
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ie.agisoft</groupId>
+	<artifactId>jni-maven</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>jni-maven</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<configuration>
+							<target
+								name="jni"
+								description="Generate headers and compile the native code">
+								<echo>Generating JNI headers</echo>
+								<!-- Does not work with OpenJDK, because Ant javah assumes Sun JVM
+								<javah
+									destdir="${project.basedir}/src/main/c++"
+									classpath="${project.build.outputDirectory}">
+									<class name="ie.agisoft.Test"/>
+								</javah>
+								-->
+								<exec executable="javah" >
+									<arg value="-d" />
+									<arg value="${project.basedir}/src/main/c++" />
+									<arg value="-classpath" />
+									<arg value="${project.build.outputDirectory}" />
+									<arg value="-force" />
+									<arg value="ie.agisoft.Test" />
+								</exec>
+
+								<exec executable="make" ></exec>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

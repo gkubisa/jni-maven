@@ -3,6 +3,26 @@ jni-maven
 
 jni-maven is a sample project intended to be used as a template for Java applications using JNI.
 
+Requirements
+------------
+
+You'll need the following:
+- JDK
+- gcc
+- maven
+- ant
+- make
+
+Usage
+-----
+
+```bash
+git clone https://github.com/gkubisa/jni-maven.git jni-maven
+cd jni-maven
+mvn package
+java -cp target/jni-maven-1.0-SNAPSHOT.jar ie.agisoft.App
+```
+
 How it works
 ------------
 
